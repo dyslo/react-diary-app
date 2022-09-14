@@ -78,8 +78,7 @@ const Styled = {
         display: block;
         width: 70px;
         height: 30px;
-        margin: 0 auto;
-        border-radius: 10px;
+        margin: 10px auto;
         border: 1px solid #ccc;
     `
 };

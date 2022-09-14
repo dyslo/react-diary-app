@@ -8,12 +8,11 @@ const NotFoundPage = () => {
     const { setTitle } = useContext(TitleContext);
 
     useEffect(() => {
-        setTitle("Oopsy!");
+        setTitle("404 Not Found");
     })
     return (
         <Styled.Wrapper>
             <Styled.Icon>😅</Styled.Icon>
-            <Styled.Information>404 Not Found</Styled.Information>
             <Styled.Information2>페이지를 찾을 수 없습니다.</Styled.Information2>
         </Styled.Wrapper>
     );
