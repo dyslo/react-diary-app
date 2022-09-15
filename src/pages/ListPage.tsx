@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { TitleContext } from '../context/TitleContext';
 import { formatDate } from '../lib/utils';
@@ -24,8 +25,10 @@ const ListPage = () => {
     if (localStorage.length === 0) {
         return (
             <Styled.ContentWrapper>
-                게시글이 없습니다.<br/>
-                게시글을 작성해 보세요!
+                <span>
+                    게시글이 없습니다.<br/>
+                    게시글을 <Link to="/write"><span style={{fontWeight: 500,}}>작성</span></Link>해 보세요!
+                </span>
             </Styled.ContentWrapper>
         );
     };
@@ -58,6 +61,7 @@ const Styled = {
         height: 500px;
         text-align: center;
         font-size: 20px;
+        line-height: 30px;
         ${nowrap()};
     `,
 };

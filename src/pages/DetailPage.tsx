@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { TitleContext } from '../context/TitleContext';
 import DiaryContent from '../components/DiaryContent';
 import DiaryPaging  from '../components/DiaryPaging';
+import styled from 'styled-components';
 
 export type dataType = {
     title: string,
@@ -54,9 +55,20 @@ const DetailPage = () => {
         <>
             {(data.title === '') ? nav('/404') : <DiaryContent id={params.id} date={date} content={data.content} /> }
             {/* <DiaryPaging id={Number(params.id)} /> */}
+            <Styled.Divider />
+            <DiaryPaging id={params.id || '0'} />
+            
         </>
         
     );
 };
+
+const Styled = {
+    Divider: styled.hr`
+        outline: none;
+        border: 1px solid rgba(0,0,0,0.1);
+        margin: 0 20px;
+    `,
+}
 
 export default DetailPage;

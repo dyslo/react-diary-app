@@ -51,8 +51,9 @@ const Styled = {
     `,
 
     Title: styled.h1`
+        font-family: 'Gaegu', cursive;
         font-size: ${({ theme }) => theme.h4};
-        font-weight: 600;
+        font-weight: 700;
         text-align: center;
         width: 100%;
         padding: 20px 0;

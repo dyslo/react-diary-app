@@ -1,35 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import { flex } from '../styles/utils/flex';
 import { nowrap } from '../styles/utils/nowrap';
 
-const DiaryPaging = ({id}: {id: number}) => {
+const getItemsId = () => {
+    let tempList: Array<String> = [];
+    Object.entries({...localStorage}).map((value) => {
+        tempList.push(value[0]);
+    });
+
+    tempList.sort((a,b) => { return Number(a) - Number(b)});
+    return tempList;
+};
+
+
+const DiaryPaging = ({id}: {id: string}) => {
+    // const items = Object.entries({...localStorage}).map((value) => value });
+    const [idList, setIdList] = useState<Array<String>>(getItemsId());
+    const [idx, setIdx] = useState<number>(idList.indexOf(id));
+
+    const parseData = (id: any) => {
+        const getData = JSON.parse(localStorage.getItem(id) || '');
+        return getData;
+    }
+
+    useEffect(() => {
+        setIdList(getItemsId());
+        setIdx(idList.indexOf(id));
+    }, [setIdList, setIdx, id, idList.indexOf(id)]);
+
     return (
         <>
             <Styled.PagingWrapper>
                 <Styled.ButtonWrapper>
-                    {(id-1 <= 0) ? <></> :
-                        <Link to={`/detail/${id-1}`}>
-                            <Styled.PagingTitleWrapper flex="flex-start">
-                                <Styled.PagingSubTitle>이전 글</Styled.PagingSubTitle>
-                                <Styled.PagingTitle textalign="left">{
-                                    (localStorage !== null) ? JSON.parse(localStorage.getItem(String(id-1)) || '{}').title : <></>
-                                    }</Styled.PagingTitle>
-                            </Styled.PagingTitleWrapper>
-                        </Link> }
+                    {((idx-1) < 0) ? <></> : 
+                    <Link to={`/detail/${idList[idx-1]}`}>
+                        <Styled.PagingTitleWrapper flex="flex-start">
+                            <Styled.PagingSubTitle>이전 글</Styled.PagingSubTitle>
+                            <Styled.PagingTitle textalign="left">{parseData(idList[idx-1]).title}</Styled.PagingTitle>
+                        </Styled.PagingTitleWrapper>
+                    </Link> }
                 </Styled.ButtonWrapper>
-
                 <Styled.ButtonWrapper>
-                    {(id+1 > localStorage.length) ? <></> :
-                        <Link to={`/detail/${id+1}`}>
-                            <Styled.PagingTitleWrapper flex="flex-end">
-                                <Styled.PagingSubTitle>다음 글</Styled.PagingSubTitle>
-                                <Styled.PagingTitle textalign="right">{
-                                (localStorage !== null) ? JSON.parse(localStorage.getItem(String(id+1)) || '{}').title : <></>
-                                }</Styled.PagingTitle>
-                            </Styled.PagingTitleWrapper>
-                        </Link> }
+                    {((idx+1) >= localStorage.length) ? <></> :
+                    <Link to={`/detail/${idList[idx+1]}`}>
+                        <Styled.PagingTitleWrapper flex="flex-end">
+                            <Styled.PagingSubTitle>다음 글</Styled.PagingSubTitle>
+                            <Styled.PagingTitle textalign="right">{parseData(idList[idx+1]).title}</Styled.PagingTitle>
+                        </Styled.PagingTitleWrapper>
+                    </Link>}
                 </Styled.ButtonWrapper>
             </Styled.PagingWrapper>
         </>

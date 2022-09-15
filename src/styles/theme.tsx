@@ -3,7 +3,7 @@ export const colors = {
     blue: "#3498db",
     bg: "#ecf0f1",
     white: "#fff",
-    black: "#141414",
+    black: "#222222",
     metadata: "#a3a3a3",
 };
 
